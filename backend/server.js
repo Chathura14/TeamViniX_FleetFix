@@ -1,7 +1,7 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const mongoose = require("mongoose");
 
 dotenv.config();
 
@@ -10,14 +10,14 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.get('/', (req, res) => {
-    res.send('CTB Booking API is running...');
+app.get("/", (req, res) => {
+    res.send("CTB Booking API is running...");
 });
 
 // Import route files
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/buses', require('./routes/busRoutes'));
-app.use('/api/bookings', require('./routes/bookingRoutes'));
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/buses", require("./routes/busRoutes"));
+app.use("/api/bookings", require("./routes/bookingRoutes"));
 
 // MongoDB connection + start server
 const startServer = async () => {

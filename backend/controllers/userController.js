@@ -1,9 +1,9 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
 // @desc Register user
@@ -13,12 +13,12 @@ const registerUser = async (req, res) => {
     const { name, email, password, role, NIC, drivingLicenseID, CTBID } = req.body;
 
     if (!name || !email || !password) {
-        return res.status(400).json({ message: 'Please fill all required fields' });
+        return res.status(400).json({ message: "Please fill all required fields" });
     }
 
     const userExists = await User.findOne({ email });
     if (userExists) {
-        return res.status(400).json({ message: 'User already exists' });
+        return res.status(400).json({ message: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -30,7 +30,7 @@ const registerUser = async (req, res) => {
         role,
         NIC,
         drivingLicenseID,
-        CTBID
+        CTBID,
     });
 
     if (user) {
@@ -39,10 +39,10 @@ const registerUser = async (req, res) => {
             name: user.name,
             email: user.email,
             role: user.role,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
         });
     } else {
-        res.status(400).json({ message: 'Invalid user data' });
+        res.status(400).json({ message: "Invalid user data" });
     }
 };
 
@@ -60,10 +60,10 @@ const loginUser = async (req, res) => {
             name: user.name,
             email: user.email,
             role: user.role,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
         });
     } else {
-        res.status(401).json({ message: 'Invalid email or password' });
+        res.status(401).json({ message: "Invalid email or password" });
     }
 };
 

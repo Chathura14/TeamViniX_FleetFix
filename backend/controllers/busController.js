@@ -1,4 +1,4 @@
-const Bus = require('../models/busModel');
+const Bus = require("../models/busModel");
 
 // Add a bus (only IT Manager)
 const addBus = async (req, res) => {
@@ -14,7 +14,7 @@ const addBus = async (req, res) => {
 // Get all buses
 const getAllBuses = async (req, res) => {
     try {
-        const buses = await Bus.find().populate('driver conductor', 'name email role');
+        const buses = await Bus.find().populate("driver conductor", "name email role");
         res.json(buses);
     } catch (error) {
         res.status(500).json({ message: error.message });
